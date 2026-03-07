@@ -1,0 +1,33 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Campaign;
+use App\Models\Proposal;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Report>
+ */
+class ReportFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'reporter_id' => User::factory(),
+            'reported_user_id' => User::factory(),
+            'campaign_id' => Campaign::factory(),
+            'proposal_id' => Proposal::factory(),
+            'type' => fake()->randomElement(['user', 'campaign', 'proposal', 'other']),
+            'subject' => fake()->sentence(4),
+            'details' => fake()->paragraph(),
+            'status' => fake()->randomElement(['open', 'under_review']),
+        ];
+    }
+}
