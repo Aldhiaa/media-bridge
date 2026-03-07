@@ -12,34 +12,34 @@ class ReferenceDataSeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'Social Media Marketing',
-            'Influencer Campaigns',
-            'Performance Ads',
-            'Brand Awareness',
-            'Lead Generation',
-            'Content Production',
+            'تسويق عبر السوشيال ميديا',
+            'حملات المؤثرين',
+            'إعلانات الأداء',
+            'بناء الوعي بالعلامة التجارية',
+            'توليد العملاء المحتملين',
+            'إنتاج المحتوى',
         ];
 
         $industries = [
-            'Retail',
-            'Food and Beverage',
-            'E-commerce',
-            'Education',
-            'Healthcare',
-            'Real Estate',
-            'Fintech',
-            'Travel and Tourism',
+            'التجزئة',
+            'الأغذية والمشروبات',
+            'التجارة الإلكترونية',
+            'التعليم',
+            'الرعاية الصحية',
+            'العقارات',
+            'التقنية المالية',
+            'السياحة والسفر',
         ];
 
         $services = [
-            'Social Media Management',
-            'Paid Advertising',
-            'Creative Design',
-            'Content Writing',
-            'Video Production',
-            'SEO',
-            'Marketing Strategy',
-            'Influencer Management',
+            'إدارة حسابات التواصل الاجتماعي',
+            'الإعلانات المدفوعة',
+            'التصميم الإبداعي',
+            'كتابة المحتوى',
+            'إنتاج الفيديو',
+            'تحسين محركات البحث (SEO)',
+            'استراتيجيات التسويق',
+            'إدارة حملات المؤثرين',
         ];
 
         foreach ($categories as $name) {

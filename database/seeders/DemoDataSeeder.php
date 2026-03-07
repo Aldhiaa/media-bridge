@@ -29,16 +29,17 @@ class DemoDataSeeder extends Seeder
 {
     public function run(): void
     {
+        // ===== المدير =====
         $admin = User::query()->updateOrCreate(
             ['email' => 'admin@mediabridge.test'],
             [
-                'name' => 'Admin User',
+                'name' => 'عبدالعزيز الفهد',
                 'password' => Hash::make('admin12345'),
                 'role' => Role::Admin->value,
                 'status' => UserStatus::Active->value,
-                'phone' => '770000001',
-                'city' => 'Aden',
-                'country' => 'Yemen',
+                'phone' => '0500000001',
+                'city' => 'الرياض',
+                'country' => 'المملكة العربية السعودية',
                 'email_verified_at' => now(),
             ]
         );
@@ -47,16 +48,17 @@ class DemoDataSeeder extends Seeder
         $industries = Industry::all();
         $services = Service::all();
 
+        // ===== الشركات =====
         $primaryCompany = User::query()->updateOrCreate(
             ['email' => 'company1@mediabridge.test'],
             [
-                'name' => 'Company Demo',
+                'name' => 'سلطان العتيبي',
                 'password' => Hash::make('company12345'),
                 'role' => Role::Company->value,
                 'status' => UserStatus::Active->value,
-                'phone' => '770000101',
-                'city' => 'Aden',
-                'country' => 'Yemen',
+                'phone' => '0501234567',
+                'city' => 'الرياض',
+                'country' => 'المملكة العربية السعودية',
                 'email_verified_at' => now(),
             ]
         );
@@ -76,16 +78,17 @@ class DemoDataSeeder extends Seeder
             ]);
         }
 
+        // ===== الوكالات =====
         $primaryAgency = User::query()->updateOrCreate(
             ['email' => 'agency1@mediabridge.test'],
             [
-                'name' => 'Agency Demo',
+                'name' => 'نواف الشهري',
                 'password' => Hash::make('agency12345'),
                 'role' => Role::Agency->value,
                 'status' => UserStatus::Active->value,
-                'phone' => '770000201',
-                'city' => 'Sana\'a',
-                'country' => 'Yemen',
+                'phone' => '0559876543',
+                'city' => 'جدة',
+                'country' => 'المملكة العربية السعودية',
                 'email_verified_at' => now(),
             ]
         );
@@ -108,6 +111,7 @@ class DemoDataSeeder extends Seeder
             $profile->industries()->sync($industries->random(rand(2, 3))->pluck('id')->all());
         }
 
+        // ===== الحملات =====
         $campaigns = collect();
         for ($i = 1; $i <= 15; $i++) {
             $statusPool = [
@@ -130,7 +134,7 @@ class DemoDataSeeder extends Seeder
                 'is_featured' => $i <= 6,
             ]);
 
-            $channelSamples = ['Instagram', 'TikTok', 'Snapchat', 'X', 'YouTube', 'Google Ads'];
+            $channelSamples = ['انستغرام', 'تيك توك', 'سناب شات', 'X (تويتر)', 'يوتيوب', 'إعلانات قوقل'];
             foreach (collect($channelSamples)->shuffle()->take(rand(2, 4)) as $channel) {
                 $campaign->channels()->create(['channel' => $channel]);
             }
@@ -138,8 +142,8 @@ class DemoDataSeeder extends Seeder
             if (rand(0, 1)) {
                 $campaign->attachments()->create([
                     'uploaded_by' => $campaign->company_id,
-                    'original_name' => 'brief-'.$campaign->id.'.pdf',
-                    'file_path' => 'campaigns/demo-brief-'.$campaign->id.'.pdf',
+                    'original_name' => 'ملخص-الحملة-' . $campaign->id . '.pdf',
+                    'file_path' => 'campaigns/brief-' . $campaign->id . '.pdf',
                     'mime_type' => 'application/pdf',
                     'file_size' => rand(12000, 700000),
                 ]);
@@ -148,6 +152,7 @@ class DemoDataSeeder extends Seeder
             $campaigns->push($campaign);
         }
 
+        // ===== العروض =====
         $proposalTotal = 0;
         while ($proposalTotal < 30) {
             $campaign = $campaigns->random();
@@ -166,8 +171,8 @@ class DemoDataSeeder extends Seeder
 
             if (rand(0, 1)) {
                 $proposal->attachments()->create([
-                    'original_name' => 'proposal-'.$proposal->id.'.pdf',
-                    'file_path' => 'proposals/demo-'.$proposal->id.'.pdf',
+                    'original_name' => 'عرض-تقديمي-' . $proposal->id . '.pdf',
+                    'file_path' => 'proposals/proposal-' . $proposal->id . '.pdf',
                     'mime_type' => 'application/pdf',
                     'file_size' => rand(9000, 500000),
                 ]);
@@ -176,10 +181,19 @@ class DemoDataSeeder extends Seeder
             $proposalTotal++;
         }
 
+        // ===== ترسية وإكمال بعض الحملات =====
+        $reviewComments = [
+            'تنفيذ ممتاز وتواصل احترافي طوال فترة المشروع. ننصح بالتعامل معهم.',
+            'جودة عالية في المحتوى والتصميم. التزام تام بالمواعيد والميزانية.',
+            'فريق محترف وخبرة واضحة في السوق السعودي. نتائج فاقت توقعاتنا.',
+            'تجربة ممتازة من البداية للنهاية. تقارير أداء دقيقة وشفافة.',
+            'عمل رائع وإبداع في المحتوى. سنتعامل معهم مرة أخرى بالتأكيد.',
+        ];
+
         $campaignsWithProposals = Campaign::query()->has('proposals', '>=', 2)->get();
         foreach ($campaignsWithProposals->shuffle()->take(5) as $campaign) {
             $accepted = $campaign->proposals()->inRandomOrder()->first();
-            if (! $accepted) {
+            if (!$accepted) {
                 continue;
             }
 
@@ -211,11 +225,27 @@ class DemoDataSeeder extends Seeder
                     'company_id' => $campaign->company_id,
                     'agency_id' => $accepted->agency_id,
                     'rating' => rand(4, 5),
-                    'comment' => 'Excellent execution and communication.',
+                    'comment' => $reviewComments[array_rand($reviewComments)],
                     'is_approved' => true,
                 ]);
             }
         }
+
+        // ===== المحادثات =====
+        $chatMessages = [
+            'السلام عليكم، نود الاستفسار عن تفاصيل العرض المقدم.',
+            'وعليكم السلام، بالتأكيد. نحن جاهزون للإجابة على أي استفسار.',
+            'هل يمكنكم تقديم عرض مخصص لحملة رمضان؟',
+            'نعم بكل تأكيد. سنرسل لكم عرضاً مفصلاً خلال 24 ساعة.',
+            'ما هي المنصات التي تنصحون بها لمنتجنا؟',
+            'بناءً على تحليل الجمهور المستهدف، ننصح بسناب شات وانستغرام.',
+            'متى يمكنكم البدء في تنفيذ الحملة؟',
+            'يمكننا البدء خلال أسبوع من الموافقة على العرض.',
+            'هل لديكم أعمال سابقة في نفس القطاع؟',
+            'نعم، نفذنا 3 حملات مشابهة مؤخراً. سنشارككم الملفات.',
+            'ممتاز، نتطلع للتعاون معكم.',
+            'شكراً لثقتكم. سنبذل قصارى جهدنا لتحقيق أفضل النتائج.',
+        ];
 
         $proposalsForConversations = Proposal::query()->with('campaign')->inRandomOrder()->take(20)->get();
         foreach ($proposalsForConversations as $proposal) {
@@ -231,13 +261,13 @@ class DemoDataSeeder extends Seeder
                 ]
             );
 
-            $messageCount = rand(1, 3);
+            $messageCount = rand(1, 4);
             for ($i = 0; $i < $messageCount; $i++) {
                 $senderId = $i % 2 === 0 ? $conversation->company_id : $conversation->agency_id;
                 $message = Message::query()->create([
                     'conversation_id' => $conversation->id,
                     'sender_id' => $senderId,
-                    'body' => 'Demo message '.Str::random(8),
+                    'body' => $chatMessages[array_rand($chatMessages)],
                     'is_read' => rand(0, 1) === 1,
                     'read_at' => now(),
                     'created_at' => now()->subHours(rand(1, 72)),
@@ -248,6 +278,7 @@ class DemoDataSeeder extends Seeder
             }
         }
 
+        // ===== الإشعارات =====
         Proposal::query()->with(['campaign.company', 'agency'])->latest()->take(12)->get()->each(function (Proposal $proposal): void {
             $proposal->campaign->company->notify(new ProposalSubmittedNotification($proposal));
             $proposal->agency->notify(new ProposalStatusNotification($proposal, $proposal->status->label()));
@@ -256,6 +287,30 @@ class DemoDataSeeder extends Seeder
         Conversation::query()->with(['company', 'agency'])->latest()->take(8)->get()->each(function (Conversation $conversation): void {
             $conversation->agency->notify(new NewMessageNotification($conversation, $conversation->company));
         });
+
+        // ===== البلاغات =====
+        $reportSubjects = [
+            'تأخر في التسليم',
+            'جودة المحتوى غير مقبولة',
+            'عدم الالتزام بالاتفاق',
+            'محتوى مخالف للسياسات',
+            'تواصل غير احترافي',
+            'ادعاءات غير صحيحة في الملف التعريفي',
+            'عدم الرد على الرسائل',
+            'طلب دفعات خارج المنصة',
+            'إساءة استخدام المنصة',
+            'بيانات مضللة في العرض',
+        ];
+
+        $reportDetails = [
+            'تم رصد تأخر متكرر في تسليم المخرجات المتفق عليها دون إبداء أسباب واضحة أو التواصل المسبق.',
+            'المحتوى المقدم لا يرقى للمستوى المتفق عليه ولا يتوافق مع المعايير المذكورة في العرض.',
+            'لم يتم الالتزام بالشروط والأحكام المتفق عليها في العقد المبرم عبر المنصة.',
+            'تم نشر محتوى يخالف سياسات المنصة ومعايير الإعلان في المملكة العربية السعودية.',
+            'أسلوب التواصل غير احترافي ولا يتناسب مع بيئة العمل المهنية.',
+        ];
+
+        $reportTypes = ['مستخدم', 'حملة', 'عرض'];
 
         $allUsers = User::query()->where('role', '!=', Role::Admin->value)->get();
         for ($i = 0; $i < 10; $i++) {
@@ -269,8 +324,8 @@ class DemoDataSeeder extends Seeder
                 'campaign_id' => $campaign->id,
                 'proposal_id' => $campaign->proposals()->inRandomOrder()->value('id'),
                 'type' => collect(['user', 'campaign', 'proposal'])->random(),
-                'subject' => 'Demo report '.($i + 1),
-                'details' => 'This is a seeded complaint for moderation workflow testing.',
+                'subject' => $reportSubjects[$i],
+                'details' => $reportDetails[array_rand($reportDetails)],
                 'status' => collect(['open', 'under_review', 'resolved'])->random(),
                 'resolved_by' => $admin->id,
                 'resolved_at' => now()->subDays(rand(0, 5)),

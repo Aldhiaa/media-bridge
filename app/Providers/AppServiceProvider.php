@@ -15,6 +15,7 @@ use App\Policies\ReviewPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,14 +32,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('admin', fn (User $user): bool => $user->isAdmin());
+        Paginator::defaultView('vendor.pagination.bootstrap-5');
+        Paginator::defaultSimpleView('vendor.pagination.bootstrap-5');
+        Gate::define('admin', fn(User $user): bool => $user->isAdmin());
         Gate::policy(Campaign::class, CampaignPolicy::class);
         Gate::policy(Proposal::class, ProposalPolicy::class);
         Gate::policy(Conversation::class, ConversationPolicy::class);
         Gate::policy(Review::class, ReviewPolicy::class);
 
         View::composer('*', function ($view): void {
-            if (! auth()->check()) {
+            if (!auth()->check()) {
                 $view->with('navStats', [
                     'unread_notifications' => 0,
                     'unread_messages' => 0,

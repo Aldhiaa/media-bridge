@@ -1,52 +1,79 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
-@section('title', 'الإشعارات')
+@section('title', 'الإشعارات - Media Bridge')
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="h4 mb-0">الإشعارات</h1>
+<div class="page-header mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1><i class="bi bi-bell ms-2"></i> الإشعارات</h1>
+            <p>جميع إشعاراتك ومستجداتك</p>
+        </div>
         <form method="POST" action="{{ route('notifications.read-all') }}">
             @csrf
-            <button class="btn btn-outline-primary btn-sm">تعليم الكل كمقروء</button>
+            <button class="btn btn-outline-light btn-sm"><i class="bi bi-check-all ms-1"></i> تعليم الكل كمقروء</button>
         </form>
     </div>
+</div>
 
-    <div class="card">
-        <div class="table-responsive">
-            <table class="table align-middle mb-0">
-                <thead>
+<div class="card">
+    <div class="table-responsive">
+        <table class="table align-middle mb-0">
+            <thead>
                 <tr>
-                    <th>العنوان</th>
+                    <th>الإشعار</th>
                     <th>التفاصيل</th>
                     <th>التاريخ</th>
-                    <th></th>
+                    <th>الإجراءات</th>
                 </tr>
-                </thead>
-                <tbody>
+            </thead>
+            <tbody>
                 @forelse($notifications as $notification)
-                    @php($data = $notification->data)
-                    <tr class="{{ $notification->read_at ? '' : 'table-warning' }}">
-                        <td>{{ $data['title'] ?? 'Notification' }}</td>
-                        <td>{{ $data['body'] ?? '' }}</td>
-                        <td>{{ $notification->created_at->diffForHumans() }}</td>
-                        <td class="text-nowrap">
+                @php($data = $notification->data)
+                <tr class="{{ $notification->read_at ? '' : 'table-warning' }}">
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="icon-box {{ $notification->read_at ? 'icon-box-primary' : 'icon-box-accent' }}"
+                                style="width: 32px; height: 32px; font-size: 0.75rem;">
+                                <i class="bi bi-bell{{ $notification->read_at ? '' : '-fill' }}"></i>
+                            </div>
+                            <span class="fw-bold small">{{ $data['title'] ?? 'إشعار جديد' }}</span>
+                        </div>
+                    </td>
+                    <td class="small text-muted">{{ $data['body'] ?? '' }}</td>
+                    <td class="small text-muted">{{ $notification->created_at->diffForHumans() }}</td>
+                    <td class="text-nowrap">
+                        <div class="d-flex gap-1">
                             @if(!empty($data['url']))
-                                <a href="{{ $data['url'] }}" class="btn btn-sm btn-outline-secondary">فتح</a>
+                                <a href="{{ $data['url'] }}" class="btn btn-sm btn-outline-primary" title="فتح"><i
+                                        class="bi bi-box-arrow-up-left"></i></a>
                             @endif
                             @if(!$notification->read_at)
-                                <form method="POST" action="{{ route('notifications.read', $notification->id) }}" class="d-inline">
+                                <form method="POST" action="{{ route('notifications.read', $notification->id) }}"
+                                    class="d-inline">
                                     @csrf
-                                    <button class="btn btn-sm btn-primary">تمت القراءة</button>
+                                    <button class="btn btn-sm btn-primary" title="تمت القراءة"><i
+                                            class="bi bi-check-lg"></i></button>
                                 </form>
                             @endif
-                        </td>
-                    </tr>
+                        </div>
+                    </td>
+                </tr>
                 @empty
-                    <tr><td colspan="4"><div class="text-center p-4 text-muted">لا توجد إشعارات.</div></td></tr>
+                <tr>
+                    <td colspan="4">
+                        <div class="empty-state">
+                            <i class="bi bi-bell-slash d-block"></i>
+                            <p>لا توجد إشعارات</p>
+                        </div>
+                    </td>
+                </tr>
                 @endforelse
-                </tbody>
-            </table>
-        </div>
-        <div class="card-footer">{{ $notifications->links() }}</div>
+            </tbody>
+        </table>
     </div>
+    @if($notifications->hasPages())
+        <div class="card-footer">{{ $notifications->links() }}</div>
+    @endif
+</div>
 @endsection
