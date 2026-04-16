@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'تسجيل الدخول - Media Bridge')
+@section('title', 'تسجيل الدخول - Wassl')
 
 @section('content')
     <div class="row justify-content-center py-3">

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Media Bridge - المنصة الوسيطة للتسويق الرقمي')</title>
+    <title>@yield('title', 'Wassl - المنصة الوسيطة للتسويق الرقمي')</title>
     <meta name="description"
         content="@yield('meta_description', 'منصة رقمية وسيطة تربط الشركات بوكالات التسويق الرقمي لإطلاق حملات إعلانية احترافية بشفافية وكفاءة.')">
 
@@ -696,7 +696,7 @@
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('home') }}">
                 <span class="brand-icon"><i class="bi bi-megaphone-fill"></i></span>
-                Media Bridge
+                Wassl
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
@@ -812,7 +812,7 @@
             <div class="row g-4">
                 <div class="col-lg-4">
                     <a href="{{ route('home') }}" class="footer-brand">
-                        <i class="bi bi-megaphone-fill ms-2"></i> Media Bridge
+                        <i class="bi bi-megaphone-fill ms-2"></i> Wassl
                     </a>
                     <p class="mt-2" style="font-size: 0.9rem; line-height: 1.8;">
                         منصة رقمية وسيطة تنظم العلاقة بين الشركات ووكالات التسويق الرقمي من خلال آلية عمل واضحة وشفافة
@@ -849,7 +849,7 @@
                 </div>
             </div>
             <div class="footer-bottom text-center">
-                جميع الحقوق محفوظة &copy; {{ date('Y') }} Media Bridge - الجامعة السعودية الإلكترونية
+                جميع الحقوق محفوظة &copy; {{ date('Y') }} Wassl
             </div>
         </div>
     </footer>

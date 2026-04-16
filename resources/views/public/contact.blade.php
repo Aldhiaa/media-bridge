@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'تواصل معنا - Media Bridge')
+@section('title', 'تواصل معنا - Wassl')
 
 @section('content')
     <div class="page-header mb-4">

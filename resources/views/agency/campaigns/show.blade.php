@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', $campaign->title . ' - Media Bridge')
+@section('title', $campaign->title . ' - Wassl')
 
 @section('content')
     <div class="page-header">

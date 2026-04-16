@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'التصنيفات - Media Bridge')
+@section('title', 'التصنيفات - Wassl')
 
 @section('content')
     <div class="page-header mb-4">

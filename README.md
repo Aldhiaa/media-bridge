@@ -1,4 +1,4 @@
-# Media Bridge (Graduation Project MVP)
+# Wassl (Graduation Project MVP)
 
 Digital intermediary platform connecting companies/brands with digital marketing agencies through a structured campaign marketplace.
 

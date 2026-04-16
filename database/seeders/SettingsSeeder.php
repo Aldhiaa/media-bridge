@@ -10,7 +10,7 @@ class SettingsSeeder extends Seeder
     public function run(): void
     {
         $settings = [
-            ['group' => 'general', 'key' => 'platform_name', 'value' => 'Media Bridge', 'type' => 'string'],
+            ['group' => 'general', 'key' => 'platform_name', 'value' => 'Wassl', 'type' => 'string'],
             ['group' => 'general', 'key' => 'support_email', 'value' => 'support@mediabridge.sa', 'type' => 'string'],
             ['group' => 'general', 'key' => 'default_currency', 'value' => 'SAR', 'type' => 'string'],
             ['group' => 'general', 'key' => 'contact_phone', 'value' => '+966500000000', 'type' => 'string'],

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Media Bridge - المنصة الوسيطة للتسويق الرقمي')
+@section('title', 'Wassl - المنصة الوسيطة للتسويق الرقمي')
 @section('meta_description', 'منصة رقمية وسيطة تربط الشركات بوكالات التسويق الرقمي لإطلاق حملات إعلانية احترافية بشفافية وكفاءة.')
 
 @section('content')
@@ -215,7 +215,7 @@
     {{-- ===== WHY US SECTION ===== --}}
     <section class="mb-5 animate-in animate-delay-4">
         <div class="section-header">
-            <h2>لماذا تختار Media Bridge؟</h2>
+            <h2>لماذا تختار Wassl؟</h2>
         </div>
         <div class="row g-3">
             <div class="col-md-4">

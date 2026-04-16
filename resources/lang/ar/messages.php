@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'app_name' => 'Media Bridge',
+    'app_name' => 'Wassl',
     'dashboard' => 'لوحة التحكم',
     'campaigns' => 'الحملات',
     'proposals' => 'العروض',

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'محادثة - Media Bridge')
+@section('title', 'محادثة - Wassl')
 
 @push('styles')
     <style>

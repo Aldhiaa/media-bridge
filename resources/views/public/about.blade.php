@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'عن المنصة - Media Bridge')
+@section('title', 'عن المنصة - Wassl')
 
 @section('content')
     <div class="page-header mb-4">
@@ -10,9 +10,9 @@
     <div class="row g-4">
         <div class="col-lg-8">
             <div class="card p-4">
-                <h2 class="h5 fw-bold mb-3" style="color: var(--primary);">ما هي Media Bridge؟</h2>
+                <h2 class="h5 fw-bold mb-3" style="color: var(--primary);">ما هي Wassl؟</h2>
                 <p class="mb-3" style="line-height: 2;">
-                    <strong>Media Bridge</strong> منصة رقمية وسيطة مبتكرة تهدف إلى تنظيم العلاقة بين الشركات والعلامات
+                    <strong>Wassl</strong> منصة رقمية وسيطة مبتكرة تهدف إلى تنظيم العلاقة بين الشركات والعلامات
                     التجارية من جهة، ووكالات التسويق الرقمي من جهة أخرى. نقدم بيئة احترافية تتيح للشركات طرح تفاصيل حملاتها
                     الإعلانية وميزانيتها بكل شفافية ووضوح، بينما تتنافس الوكالات لتقديم أفضل العروض من حيث السعر والفكرة
                     والخبرة.

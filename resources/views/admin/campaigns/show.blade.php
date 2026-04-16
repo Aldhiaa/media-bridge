@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'تفاصيل حملة - Media Bridge')
+@section('title', 'تفاصيل حملة - Wassl')
 
 @section('content')
     @php
